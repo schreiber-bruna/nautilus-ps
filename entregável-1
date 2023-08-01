@@ -1,1 +1,3 @@
-orelhinhas pro felipe
+O primeiro comando que damos é o ls para localizar onde nós estamos, depois disso o terminal irá nos mostrar se há diretório nesse local. No meu caso não tinha então criei um diretório com o comando mkdir chamado nautilus_ps.
+Dentro do diretório nautilus_ps criei um arquivo script chamado vim welcome.sh, onde vim é o editor de texto para editar arquivos e o .sh é um dos tipos de arquivos de script. Dentro do welcome.sh a primeira linha é o #!/bin/bash, já que cada script bash deverá começar com ele.
+A segunda linha do welcome.sh foi o hostname=$(hostname) para pegar o nome do pc que está sendo utilizado. A terceira linha foi echo Bem vindo $USER no pc $hostname, pa
