@@ -1,3 +1,7 @@
 O primeiro comando que damos é o ls para localizar onde nós estamos, depois disso o terminal irá nos mostrar se há diretório nesse local. No meu caso não tinha então criei um diretório com o comando mkdir chamado nautilus_ps.
 Dentro do diretório nautilus_ps criei um arquivo script chamado vim welcome.sh, onde vim é o editor de texto para editar arquivos e o .sh é um dos tipos de arquivos de script. Dentro do welcome.sh a primeira linha é o #!/bin/bash, já que cada script bash deverá começar com ele.
-A segunda linha do welcome.sh foi o hostname=$(hostname) para pegar o nome do pc que está sendo utilizado. A terceira linha foi echo Bem vindo $USER no pc $hostname, pa
+A segunda linha do welcome.sh foi o hostname=$(hostname) para pegar o nome do pc que está sendo utilizado. A terceira linha foi echo Bem vindo $USER no pc $hostname, para dar as boas vindas ao usuário que estiver logado usando o $USER.
+A quarta linha do welcome.sh foi o curl wttr.in/?0 que serve para informar o clima atual. E a quinta do welcome.sh foi o touch ~/.welcome.data, para criar um arquivo vazio para armazenar as informações do tempo das vezes que foi executado o welcome.sh.  
+A sexta linha do welcome.sh foi o echo "$(curl wttr.in/?0)" >> ~/.welcome.data para salvar as informações do tempo no arquivo welcome.data.
+Depois disso foi criado um softlink com o comando ls -s, ln -s ~/nautilus_ps/welcome.sh /usr/bin/welcome; que faz a ‘ligação’ entre o welcome.sh com a home pelo softlink welcome.
+Depois disso, foi usado o comando vim .bashrc para acessar o bashrc pelo vim para adicionar o welcome e assim funcionar o código.
