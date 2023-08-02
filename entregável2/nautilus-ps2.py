@@ -1,4 +1,5 @@
-
+#os parâmetros do def __init__ da class Auv são o nome do Auv, o ano dele e a quantidade de thursters
+#o parâmetro do def __init__ da class Nautilus é robos_lista, pois será a lista robos, que contém as informações dos robôs, o parâmetro
 class Auv:
     def __init__(self, nome: str, ano: int, numero_thursters: int):
         self.__nome =nome
