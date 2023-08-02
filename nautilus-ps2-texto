@@ -1,0 +1,3 @@
+A classe Auv é usada para criar objetos que armazenam as informações sobre os diferentes Auvs (no casoo o BrHUE e o Lua)
+Os atributos privados são o nome, ano e numero_thursters
+Os métodos são: para criar um objeto Auv precisa de nome, ano e numero_thursters como parâmetros de entrada. Já o get_nome, get_ano e get_numero_thursters são os métodos para retirar, respectivamente o nome, ano e o numero_thursters
