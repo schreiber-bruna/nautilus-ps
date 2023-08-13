@@ -1,0 +1,17 @@
+<launch>
+    <!-- Definir argumentos -->
+    <arg name="planeta_radianos" default="0.0"/>
+    <arg name="satelite_radianos" default="0.0"/>
+
+    <!-- Carregar parâmetros do arquivo YAML -->
+    <rosparam command="load" file="$(find sistema_solar)/config/parametros.yaml"/>
+
+
+    <!-- Iniciar o nó -->
+    <node name="sistema_solar_node" pkg="sistema_solar" type="sistema_solar.py" output="screen">
+        <!-- Passe os parâmetros como argumentos para o nó -->
+        <param name="planeta_radianos" value="$(arg planeta_radianos)"/>
+        <param name="satelite_radianos" value="$(arg satelite_radianos)"/>
+    </node>
+</launch>
+

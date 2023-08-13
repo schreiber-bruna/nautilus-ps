@@ -1,0 +1,2 @@
+sistema_solar:ur5-joint-position-control
+-DCATKIN_DEVEL_PREFIX=/home/bruna/final_ws/devel -DCMAKE_INSTALL_PREFIX=/home/bruna/final_ws/install -G Unix Makefiles
