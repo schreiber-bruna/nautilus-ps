@@ -1,8 +1,0 @@
-prefix=/home/bruna/velocidades_ws/devel
-
-Name: velocidade_sensor
-Description: Description of velocidade_sensor
-Version: 0.0.0
-Cflags: 
-Libs: 
-Requires: 
