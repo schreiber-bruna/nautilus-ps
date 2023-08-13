@@ -1,53 +1,46 @@
 #!/usr/bin/env python3
 
-import time
+import rospy
+from geometry_msgs.msg import TransformStamped
 import math
-import threading
-import numpy as np
 
-class TransformBroadcaster:
-    def __init__(self):
-        self.transforms = {}
-        self.lock = threading.Lock()
+def planeta_transformacao(angle, radius): 
+    transform = TransformStamped()
+    transform.header.stamp = rospy.Time.now()
+    transform.header.frame_id = "estrela"
+    transform.child_frame_id = "planeta"
+    transform.transform.translation.x = radius * math.cos(angle)
+    transform.transform.translation.y = radius * math.sin(angle)
+    transform.transform.rotation.w = 1.0
+    return transform
 
-    def send_transform(self, transform):
-        with self.lock:
-            self.transforms[transform['child']] = transform
-
-    def publish_transforms(self):
-        while True:
-            with self.lock:
-                for child, transform in self.transforms.items():
-                    print(f"Child: {child}, Translation: {transform['translation']}, Rotation: {transform['rotation']}")
-            time.sleep(1.0)
-
-def main():
-    broadcaster = TransformBroadcaster()
-    thread = threading.Thread(target=broadcaster.publish_transforms)
-    thread.daemon = True
-    thread.start()
-
-    while True:
-        time_now = time.time()
-
-        planeta_angulo = time_now * math.pi / 5.0
-        planeta_transform = {
-            'child': 'planeta',
-            'translation': [radius * math.cos(planeta_angulo), radius * math.sin(planeta_angulo), 0.0],
-            'rotation': [0.0, 0.0, 0.0, 1.0]
-        }
-        broadcaster.send_transform(planeta_transform)
-
-        satelite_angulo = time_now * math.pi / 2.0
-        satelite_transform = {
-            'child': 'satelite',
-            'translation': [radius * math.cos(satelite_angulo), radius * math.sin(satelite_angulo), 0.0],
-            'rotation': [0.0, 0.0, 0.0, 1.0]
-        }
-        broadcaster.send_transform(satelite_transform)
-
-        time.sleep(0.1)
+def satelite_transformacao(angle, radius): 
+    transform = TransformStamped()
+    transform.header.stamp = rospy.Time.now()
+    transform.header.frame_id = "estrela"
+    transform.child_frame_id = "satelite"
+    transform.transform.translation.x = radius * math.cos(angle)
+    transform.transform.translation.y = radius * math.sin(angle)
+    transform.transform.rotation.w = 1.0
+    return transform
 
 if __name__ == '__main__':
-    radius = 5.0  # Altere o raio da órbita aqui
-    main()
+    rospy.init_node('sistema_solar')
+    broadcaster = rospy.Publisher('sistema_solar_transform', TransformStamped, queue_size=10)
+    rate = rospy.Rate(10)  # 10 Hz
+
+    planeta_radianos = rospy.get_param("~planeta_radianos")
+    satelite_radianos = rospy.get_param("~satelite_radianos")
+
+    while not rospy.is_shutdown():
+        time = rospy.Time.now()
+
+        planeta_angulo = time.to_sec() * math.pi / 5.0
+        planeta_transformacao = planeta_transformacao(planeta_angulo, planeta_radianos)
+        broadcaster.publish(planeta_transformacao)
+
+        satelite_angulo = time.to_sec() * math.pi / 2.0
+        satelite_transformacao = satelite_transformacao(satelite_angulo, satelite_radianos)
+        broadcaster.publish(satelite_transformacao)
+
+        rate.sleep()
